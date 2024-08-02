@@ -1,0 +1,12 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/timeout: 900s
+  name: sonataflow-platform-data-index-route
+spec:
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: sonataflow-platform-data-index-service

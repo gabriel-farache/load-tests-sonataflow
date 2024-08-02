@@ -1,0 +1,18 @@
+* Install from scratch
+* Make query to DI to get the ProcessInstances
+{
+  	ProcessInstances(pagination: {limit: 10 , offset: 0})  {
+      id,
+      processName,
+      processId,
+      businessKey,
+      state,
+      start,
+      end,
+      nodes { id },
+      variables,
+      parentProcessInstance {id, processName, businessKey}
+    }
+}
+* Make query to UI to get workflow instances
+* 

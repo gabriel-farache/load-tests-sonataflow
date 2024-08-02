@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jira-mock
+  namespace: sonataflow-infra
+spec:
+  selector:
+    matchLabels:
+      app: jira-mock
+  template:
+    metadata:
+      labels:
+        app: jira-mock
+    spec:
+      containers:
+        - name: jira-mock
+          image: quay.io/gfarache/load-test-jira:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jira-mock-svc
+  namespace: sonataflow-infra
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+  selector:
+    app: jira-mock
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: jira-mock-route
+  namespace: sonataflow-infra
+spec:
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: jira-mock-svc
+
